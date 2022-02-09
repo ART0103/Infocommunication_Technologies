@@ -98,17 +98,27 @@ class Calculator(QWidget):
         try:
             if self.op == '+':
                 self.input.setText(str(self.num_1 + self.num_2))
+                del self.num_2
+                del self.num_1
             elif self.op == '-':
                 self.input.setText((str(self.num_1 - self.num_2)))
+                del self.num_2
+                del self.num_1
             elif self.op == '/':
                 try:
                     self.input.setText((str(self.num_1 / self.num_2)))
+                    del self.num_2
+                    del self.num_1
                 except ZeroDivisionError:
                     self.input.setText('На ноль делить нельзя!')
+                    del self.num_1
             elif self.op == '*':
                 self.input.setText((str(self.num_1 * self.num_2)))
+                del self.num_2
+                del self.num_1
         except AttributeError:
             self.input.setText('Вы ничего не ввели или ввели бессмыслицу')
+
 
 
 app = QApplication(sys.argv)
