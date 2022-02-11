@@ -80,9 +80,12 @@ class Calculator(QWidget):
             self.input.setText("")
         except ValueError:
             if '.' in self.input.text():
-                self.num_1 = float(self.input.text())
-                self.op = op
-                self.input.setText("")
+                try:
+                    self.num_1 = float(self.input.text())
+                    self.op = op
+                    self.input.setText('')
+                except ValueError:
+                    self.input.setText('Вы ввели несколько запятых')
             else:
                 self.input.setText('Вы ввели букву или неиспользуемый символ')
 
@@ -91,34 +94,32 @@ class Calculator(QWidget):
             self.num_2 = int(self.input.text())
         except ValueError:
             if '.' in self.input.text():
-                self.num_2 = float(self.input.text())
+                try:
+                    self.num_2 = float(self.input.text())
+                except ValueError:
+                    self.input.setText('Вы ввели несколько запятых')
             else:
                 self.input.setText('Вы ввели букву или неиспользуемый символ')
 
         try:
             if self.op == '+':
                 self.input.setText(str(self.num_1 + self.num_2))
-                del self.num_2
                 del self.num_1
             elif self.op == '-':
                 self.input.setText((str(self.num_1 - self.num_2)))
-                del self.num_2
                 del self.num_1
             elif self.op == '/':
                 try:
                     self.input.setText((str(self.num_1 / self.num_2)))
-                    del self.num_2
                     del self.num_1
                 except ZeroDivisionError:
                     self.input.setText('На ноль делить нельзя!')
                     del self.num_1
             elif self.op == '*':
                 self.input.setText((str(self.num_1 * self.num_2)))
-                del self.num_2
                 del self.num_1
         except AttributeError:
             self.input.setText('Вы ничего не ввели или ввели бессмыслицу')
-
 
 
 app = QApplication(sys.argv)
